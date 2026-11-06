@@ -1,7 +1,7 @@
 // Service worker: работа офлайн после первой загрузки.
 // Стратегия «сеть сначала, кэш как запасной»: если сеть есть, всегда берём свежие файлы (правки видны сразу),
 // если сети нет или она медленнее 2,5 с — отдаём из кэша.
-const V = 'neurobar-v45';
+const V = 'neurobar-v47';
 const FILES = ['./', 'index.html', 'manifest.json', 'assets/style.css', 'assets/fonts/Coil-Regular.otf', 'assets/fonts/Coil-Medium.otf',
   'assets/fonts/CormorantGaramond-cyr.woff2', 'assets/fonts/CormorantGaramond-lat.woff2',
   'assets/app.js', 'assets/engine.js', 'assets/cocktails.js', 'assets/idle.jpg', 'assets/touch.mp4', 'assets/bg.jpg', 'assets/icon.png',
