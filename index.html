@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Нейробар">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<meta name="theme-color" content="#0a0420">
+<meta name="google" content="notranslate">
+<link rel="icon" href="assets/icon.png">
+<link rel="manifest" href="manifest.json">
+<title>НЕЙРОБАР</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="stage">
+  <img id="bg" src="assets/bg.jpg" alt="" draggable="false">
+  <img id="vIdle" alt="" draggable="false">
+  <video id="vTouch" muted playsinline preload="auto" disablepictureinpicture></video>
+  <div id="shade"></div>
+  <canvas id="fx"></canvas>
+
+  <section id="sLoad" class="screen on"><div class="loadtxt">ЗАГРУЗКА НЕЙРОСЕТИ<span id="loadPct">0%</span></div></section>
+
+  <section id="sIdle" class="screen">
+    <div class="deco">
+      <svg class="orbit" viewBox="0 0 100 100"><circle cx="50" cy="50" r="49.6"/></svg>
+      <div class="orbitnodes"><i class="spk o1"></i><i class="spk o2"></i><i class="spk o3"></i><i class="spk o4"></i></div>
+      <div class="vline"></div>
+      <svg class="star8" viewBox="0 0 100 100">
+        <defs><radialGradient id="sg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#d6c8ff"/><stop offset="1" stop-color="#7d5cff"/></radialGradient>
+        <radialGradient id="sglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".25" stop-color="#b9a2ff" stop-opacity=".55"/><stop offset="1" stop-color="#7d5cff" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="50" cy="50" r="30" fill="url(#sglow)"/>
+        <polygon points="50.00,0.00 51.72,45.84 70.51,29.49 54.16,48.28 100.00,50.00 54.16,51.72 70.51,70.51 51.72,54.16 50.00,100.00 48.28,54.16 29.49,70.51 45.84,51.72 0.00,50.00 45.84,48.28 29.49,29.49 48.28,45.84" fill="url(#sg)"/>
+      </svg>
+    </div>
+    <h1 class="title">НЕЙРОБАР</h1>
+    <div class="hint"><i class="ring"></i><span class="h2">Коснись для продолжения</span></div>
+  </section>
+
+  <section id="sHello" class="screen"><div class="hello" id="helloTxt"></div></section>
+
+  <section id="sQ" class="screen">
+    <div class="qhead"><div class="eyebrow" id="qnum"></div><div class="progress" id="progress"><i></i><i></i><i></i></div></div>
+    <h2 class="qtext" id="qtext"></h2>
+    <div class="answers" id="answers"></div>
+  </section>
+
+  <section id="sThink" class="screen">
+    <div class="scanline"></div>
+    <div class="eyebrow">Нейросеть анализирует</div>
+    <div class="thinkgrid">
+      <div class="pctbig"><span id="thinkPct">0</span><small>%</small></div>
+      <div class="thinkside"><div class="eyebrow">Совместимость</div><div class="params" id="params"></div></div>
+    </div>
+  </section>
+
+  <section id="sResult" class="screen">
+    <div class="rgrid">
+      <div class="rleft">
+        <div class="eyebrow">Твой коктейль</div>
+        <h2 class="rname" id="rname"></h2>
+        <div class="ralt" id="ralt"></div>
+        <p class="rdesc" id="rdesc"></p>
+        <div class="frame"><div class="eyebrow">Состав</div><div class="rlist" id="rchips"></div></div>
+        <div class="rtaste" id="rtaste"></div>
+      </div>
+      <div class="rcol">
+        <div class="rring">
+          <svg viewBox="0 0 120 120"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc46b"/><stop offset="1" stop-color="#a98bff"/></linearGradient></defs>
+            <circle class="rb" cx="60" cy="60" r="54"/><circle class="rf" id="ringFill" cx="60" cy="60" r="54"/></svg>
+          <i class="rglow"></i>
+          <img class="rimg" id="rimg" alt="" draggable="false">
+          <i class="spk n1"></i><i class="spk n2"></i>
+        </div>
+        <div class="rpctbox"><b id="rpct">0</b><em>совпадение</em></div>
+      </div>
+    </div>
+    <div class="show"><span>Назови коктейль бармену</span></div>
+    <button class="again" id="againBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v4.5h4.5"/></svg><span>Сначала</span></button>
+    <div class="auto" id="autoBar"><i></i></div>
+  </section>
+
+  <div id="hud">
+    <div class="mk tl">AI-коктейль<br>под твоё настроение</div>
+    <div class="mk tr"><span>Designing emotions<br>Shaping cocktails</span><i class="pillstar"><i class="spk"></i></i></div>
+    <i class="spk c1"></i><i class="spk c2"></i><i class="spk c3"></i>
+    <div class="vpill" id="vpill">
+      <div class="st"><i></i><em>01</em></div>
+      <div class="st"><i></i><em>02</em></div>
+      <div class="st"><i></i><em>03</em></div>
+      <div class="fin"><i class="spk"></i></div>
+    </div>
+  </div>
+
+  <div id="flash"></div>
+  <div id="adminZone"></div>
+  <div id="admin" aria-hidden="true">
+    <div class="adminbox">
+      <h3>Панель бармена</h3>
+      <div id="adminPin" class="pinrow" hidden><input id="pinInput" type="password" inputmode="numeric" placeholder="Код"><button class="btn" id="pinOk" type="button">OK</button></div>
+      <div id="adminBody">
+        <table id="stats"></table>
+        <div class="adminbtns">
+          <button class="btn" id="admRestart" type="button">Перезапуск</button>
+          <button class="btn" id="admReset" type="button">Обнулить счётчик</button>
+          <button class="btn" id="admClose" type="button">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/cocktails.js"></script>
+<script src="assets/engine.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
