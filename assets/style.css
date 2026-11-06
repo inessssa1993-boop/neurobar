@@ -326,3 +326,101 @@ body.still .rglow{animation:none}
 .rpctbox em{display:block}
 .rring .rf{filter:none}
 .rring .rimg{max-width:none;max-height:none;height:auto}
+
+/* ======================= АДАПТИВ ======================= */
+/* минимальные размеры текста для маленьких экранов (на больших не срабатывают) */
+.answer{font-size:max(15px,calc(var(--u)*3))}
+.eyebrow,.ralt{font-size:max(10px,calc(var(--u)*1.7))}
+.rdesc{font-size:max(14px,calc(var(--u)*2.4))}
+.rlist span{font-size:max(12.5px,calc(var(--u)*1.95))}
+.rtaste{font-size:max(12px,calc(var(--u)*2.1))}
+.params{font-size:max(11px,calc(var(--u)*2))}
+.show span{font-size:max(14px,calc(var(--u)*2.5))}
+.again{font-size:max(10px,calc(var(--u)*1.3))}
+.rpctbox em{font-size:max(9px,calc(var(--u)*1.2))}
+.mk{font-size:max(9px,calc(var(--u)*1.05))}
+.hint span.h2{font-size:max(10px,calc(var(--u)*1.2))}
+
+/* --- телефон/узкий горизонтальный экран: прячем лишнее --- */
+@media (max-height:520px) and (orientation:landscape){
+  .mk.tr,.pillstar,#hud .c1,#hud .c2,#hud .c3{display:none}
+  .frame{margin-top:calc(var(--u)*1.2)}
+}
+
+/* --- ПОРТРЕТ (телефоны, планшеты вертикально) --- */
+@media (max-aspect-ratio:1/1){
+  :root{--u:min(2.2vw,1.15vh);--pad:6.5vw}
+  /* заставка: картинка рук в центральной полосе, остальное — тёмный фон */
+  #vIdle,#vTouch{top:19%;height:56%;bottom:auto;object-fit:cover;
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
+  #sIdle{padding-top:calc(var(--u)*9)}
+  .title{font-size:calc(var(--u)*7.6)}
+  .mk.tr,.pillstar,#hud .c2{display:none}
+  .mk.tl{left:var(--pad);top:calc(var(--u)*3)}
+  .star8{top:calc(19% + 56% * .34);width:calc(var(--u)*20);height:calc(var(--u)*20)}
+  .orbit,.orbitnodes{top:calc(19% + 56% * .34);width:calc(var(--u)*44);height:calc(var(--u)*44)}
+  .vline{top:calc(var(--u)*17);bottom:calc(var(--u)*11)}
+  .hint{bottom:calc(var(--u)*4)}
+  .hint span.h2{letter-spacing:.3em}
+
+  /* индикатор шагов: горизонтально сверху */
+  .vpill{left:50%;top:calc(var(--u)*3);transform:translateX(-50%);width:auto;height:calc(var(--u)*5);flex-direction:row;align-items:center;justify-content:center;gap:calc(var(--u)*3);padding:0 calc(var(--u)*3)}
+  .vpill::before{display:none}
+  .vpill .st{flex-direction:row;gap:calc(var(--u)*1)}
+  .vpill .st i{width:calc(var(--u)*1.4);height:calc(var(--u)*1.4)}
+  .vpill .st em{font-size:max(10px,calc(var(--u)*1.5))}
+  .vpill .fin .spk{width:calc(var(--u)*2.2);height:calc(var(--u)*2.2)}
+  #stage[data-s="sQ"] .mk.tl,#stage[data-s="sThink"] .mk.tl{display:none}
+
+  /* вопросы: один столбец */
+  #sQ{justify-content:flex-start;padding-top:calc(var(--u)*13)}
+  .qtext{font-size:calc(var(--u)*4.6);margin-bottom:calc(var(--u)*3);max-width:100%}
+  .answers{grid-template-columns:1fr;width:100%}
+  .answer{min-height:max(64px,calc(var(--u)*9));padding:calc(var(--u)*1.2) calc(var(--u)*1.5);gap:calc(var(--u)*2)}
+  .answer:nth-last-child(-n+2){border-bottom:0}
+  .answer:last-child{border-bottom:1px solid var(--line)}
+
+  /* анализ: столбиком */
+  #sThink{padding-top:calc(var(--u)*10)}
+  .thinkgrid{flex-direction:column;align-items:flex-start;gap:calc(var(--u)*3)}
+  .pctbig{font-size:calc(var(--u)*17)}
+  .thinkside{width:100%}
+  .params{height:calc(var(--u)*17)}
+
+  /* результат: бокал сверху, текст ниже */
+  #sResult{justify-content:flex-start;padding-top:calc(var(--u)*3);padding-bottom:calc(var(--u)*12)}
+  .rgrid{flex-direction:column-reverse;align-items:stretch;gap:calc(var(--u)*2)}
+  .rcol{align-self:center;gap:calc(var(--u)*1)}
+  .rring{width:calc(var(--u)*27);height:calc(var(--u)*27)}
+  .rring::before{inset:calc(var(--u)*-2)}
+  .rpctbox b{font-size:calc(var(--u)*5)}
+  .rname{font-size:calc(var(--u)*6.6)!important;margin-top:calc(var(--u)*1)}
+  .rdesc{margin-top:calc(var(--u)*1.4);max-width:100%}
+  .frame{margin-top:calc(var(--u)*1.6);max-width:100%;padding:calc(var(--u)*1.2) calc(var(--u)*1.8) calc(var(--u)*.6)}
+  .rtaste{margin-top:calc(var(--u)*.8)}
+  .show{height:calc(var(--u)*10)}
+  .show span{font-size:max(13px,calc(var(--u)*2.3))}
+  .again{bottom:calc(var(--u)*2.8);padding:0 calc(var(--u)*1.8) 0 calc(var(--u)*1.4)}
+  .again span{display:none}
+  #adminZone{width:90px;height:90px}
+}
+
+/* очень узкие телефоны */
+@media (max-width:360px) and (max-aspect-ratio:1/1){
+  .title{font-size:calc(var(--u)*6.8)}
+  .qtext{font-size:calc(var(--u)*4.2)}
+}
+/* планшет вертикально: чуть крупнее */
+@media (min-width:700px) and (max-aspect-ratio:1/1){
+  :root{--u:min(2vw,1.1vh)}
+  .again span{display:inline}
+}
+/* короткие телефоны (например 360x640): сжимаем результат */
+@media (max-aspect-ratio:1/1) and (max-height:700px){
+  .rtaste{display:none}
+  .rring{width:calc(var(--u)*23);height:calc(var(--u)*23)}
+  .rname{font-size:calc(var(--u)*5.8)!important}
+  #sResult{padding-top:calc(var(--u)*2.4)}
+  .qtext{font-size:calc(var(--u)*4.2)}
+  .answer{min-height:max(60px,calc(var(--u)*8))}
+}
