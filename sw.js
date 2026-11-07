@@ -4,7 +4,7 @@
 const V = 'neurobar-v47';
 const FILES = ['./', 'index.html', 'manifest.json', 'assets/style.css', 'assets/fonts/Coil-Regular.otf', 'assets/fonts/Coil-Medium.otf',
   'assets/fonts/CormorantGaramond-cyr.woff2', 'assets/fonts/CormorantGaramond-lat.woff2',
-  'assets/app.js', 'assets/engine.js', 'assets/cocktails.js', 'assets/idle.jpg', 'assets/touch.mp4', 'assets/bg.jpg', 'assets/icon.png',
+  'assets/app.js', 'assets/nosleep.mp4', 'assets/engine.js', 'assets/cocktails.js', 'assets/idle.jpg', 'assets/touch.mp4', 'assets/bg.jpg', 'assets/icon.png',
   'assets/cocktails/strawberry.webp', 'assets/cocktails/lavender.webp', 'assets/cocktails/dew.webp', 'assets/cocktails/sour.webp'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => Promise.all(FILES.map(f => c.add(new Request(f, { cache: 'reload' })).catch(() => {})))).then(() => self.skipWaiting()));
