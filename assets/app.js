@@ -37,8 +37,19 @@
   function reflow(n) { void n.offsetWidth; }
 
   /* ---------- Wake Lock ---------- */
+  /* на первом касании: полный экран + «не засыпать» (запасной способ для старых iPad: крошечное зацикленное видео) */
+  const nv = document.createElement('video');
+  nv.src = 'assets/nosleep.mp4'; nv.muted = true; nv.loop = true; nv.setAttribute('playsinline', ''); nv.setAttribute('webkit-playsinline', '');
+  nv.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:2px;opacity:.02;pointer-events:none;z-index:-1';
+  document.body.appendChild(nv);
+  function keepAwake() { if (nv.paused) { const p = nv.play(); if (p && p.catch) p.catch(() => {}); } }
+  function goFull() {
+    const el = document.documentElement, rq = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (rq && !(document.fullscreenElement || document.webkitFullscreenElement)) { try { const p = rq.call(el, { navigationUI: 'hide' }); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+  }
   let wl = null;
   async function lockScreen() {
+    goFull(); keepAwake();
     try {
       if ('wakeLock' in navigator && document.visibilityState === 'visible' && !wl) {
         wl = await navigator.wakeLock.request('screen');
