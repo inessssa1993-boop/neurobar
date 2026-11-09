@@ -43,7 +43,9 @@
   nv.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:2px;opacity:.02;pointer-events:none;z-index:-1';
   document.body.appendChild(nv);
   function keepAwake() { if (nv.paused) { const p = nv.play(); if (p && p.catch) p.catch(() => {}); } }
+  const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   function goFull() {
+    if (IOS || navigator.standalone || matchMedia('(display-mode: fullscreen)').matches || matchMedia('(display-mode: standalone)').matches) return;   // iPad: свой полный экран Safari рисует крестик, а из ярлыка он не нужен
     const el = document.documentElement, rq = el.requestFullscreen || el.webkitRequestFullscreen;
     if (rq && !(document.fullscreenElement || document.webkitFullscreenElement)) { try { const p = rq.call(el, { navigationUI: 'hide' }); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
   }
